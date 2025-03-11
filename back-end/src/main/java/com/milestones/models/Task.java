@@ -1,10 +1,27 @@
 package com.milestones.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+@Entity
 public class Task {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
     private String description;
     private String status;
+
+    public Task() {}
+
+    public Task(String name, String description, String status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
 
     public long getId() {
         return id;
@@ -36,15 +53,5 @@ public class Task {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public Task(long id, String name, String description, String status) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
-
-    public Task() {
     }
 }

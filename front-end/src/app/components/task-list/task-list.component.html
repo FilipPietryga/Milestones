@@ -1,3 +1,22 @@
-<ul>
-  <app-task *ngFor="let task of tasks" [task]="task"></app-task>
-</ul>
+<div class="task-board">
+  <div class="column">
+    <h2>To Do</h2>
+    <div *ngFor="let task of todoTasks" class="task-card">
+      <app-task [task]="task"></app-task>
+    </div>
+  </div>
+
+  <div class="column">
+    <h2>In Progress</h2>
+    <div *ngFor="let task of inProgressTasks" class="task-card">
+      <app-task [task]="task"></app-task>
+    </div>
+  </div>
+
+  <div class="column">
+    <h2>Done</h2>
+    <div *ngFor="let task of doneTasks" class="task-card">
+      <app-task [task]="task"></app-task>
+    </div>
+  </div>
+</div>

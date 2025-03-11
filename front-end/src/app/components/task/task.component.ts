@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../models/task/task';
+import { TaskModel } from '../../models/task/task.model';
 
 @Component({
   selector: 'app-task',
@@ -9,5 +9,5 @@ import { Task } from '../../models/task/task';
   styleUrl: './task.component.sass'
 })
 export class TaskComponent {
-  @Input() task: Task | null = null;  
+  @Input() task: TaskModel | null = null;  
 }

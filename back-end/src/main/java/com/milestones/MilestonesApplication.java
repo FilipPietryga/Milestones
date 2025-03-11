@@ -17,9 +17,9 @@ public class MilestonesApplication {
 	@Bean
 	public CommandLineRunner demo(TaskRepository taskRepository) {
 		return (args) -> {
-			taskRepository.save(new TaskModel("Task 1", "Description for Task 1", "To Do"));
-			taskRepository.save(new TaskModel("Task 2", "Description for Task 2", "In Progress"));
-			taskRepository.save(new TaskModel("Task 3", "Description for Task 3", "Done"));
+			taskRepository.save(new TaskModel("Task 1", "Description for Task 1", "todo"));
+			taskRepository.save(new TaskModel("Task 2", "Description for Task 2", "in_progress"));
+			taskRepository.save(new TaskModel("Task 3", "Description for Task 3", "done"));
 		};
 	}
 }

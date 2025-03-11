@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task/task.service';
 import { TaskComponent } from "../task/task.component";
-import { Task } from '../../models/task/task';
+import { TaskModel } from '../../models/task/task.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,18 +12,23 @@ import { CommonModule } from '@angular/common';
   styleUrl: './task-list.component.sass'
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];  
+  tasks: TaskModel[] = [];
+  todoTasks: TaskModel[] = [];
+  inProgressTasks: TaskModel[] = [];
+  doneTasks: TaskModel[] = [];
 
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe(
-      (data) => {
-        this.tasks = data;  
-      },
-      (error) => {
-        console.error('Error fetching tasks:', error);
-      }
-    );
+    this.fetchTasks();
+  }
+
+  fetchTasks(): void {
+    this.taskService.getTasks().subscribe((data: TaskModel[]) => {
+      this.tasks = data;
+      this.todoTasks = this.tasks.filter(task => task.status === 'todo');
+      this.inProgressTasks = this.tasks.filter(task => task.status === 'in_progress');
+      this.doneTasks = this.tasks.filter(task => task.status === 'done');
+    });
   }
 }

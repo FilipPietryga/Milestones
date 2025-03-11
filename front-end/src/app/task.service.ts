@@ -11,7 +11,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  getTasks(): Observable<string> {
-    return this.http.get(this.apiUrl, { responseType: 'text' });
+  getTasks(): Observable<string[]> {
+    return this.http.get<string[]>(this.apiUrl);
   }
 }

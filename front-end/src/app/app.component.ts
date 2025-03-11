@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { TaskListComponent } from "./task-list/task-list.component";
+import { TaskListComponent } from "./components/task-list/task-list.component";
 
 @Component({
   selector: 'app-root',

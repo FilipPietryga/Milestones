@@ -1,23 +1,61 @@
 package com.milestones.controllers;
 
-import com.milestones.models.Task;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.milestones.models.TaskModel;
+import com.milestones.services.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tasks")
+@Tag(name = "Tasks", description = "Task management API")
 public class TaskController {
 
+    private final TaskService taskService;
+
+    @Autowired
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
+
+    @Operation(summary = "Get all tasks", description = "Retrieve a list of all tasks.")
     @GetMapping
-    public List<Task> getTasks() {
-        return Arrays.asList(
-                new Task(1, "Task 1", "Description for Task 1", "To Do"),
-                new Task(2, "Task 2", "Description for Task 2", "In Progress"),
-                new Task(3, "Task 3", "Description for Task 3", "Done")
-        );
+    public List<TaskModel> getTasks() {
+        return taskService.getAllTasks();
+    }
+
+    @Operation(summary = "Get a task by ID", description = "Retrieve a single task by its ID.")
+    @GetMapping("/{id}")
+    public Optional<TaskModel> getTask(
+            @Parameter(description = "ID of the task to retrieve") @PathVariable long id) {
+        return taskService.getTaskById(id);
+    }
+
+    @Operation(summary = "Create a new task", description = "Add a new task to the database.")
+    @PostMapping
+    public TaskModel createTask(
+            @Parameter(description = "Task object to be created") @RequestBody TaskModel task) {
+        return taskService.saveTask(task);
+    }
+
+    @Operation(summary = "Update a task", description = "Update an existing task's details.")
+    @PutMapping("/{id}")
+    public TaskModel updateTask(
+            @Parameter(description = "ID of the task to update") @PathVariable long id,
+            @Parameter(description = "Updated task object") @RequestBody TaskModel task) {
+        task.setId(id);
+        return taskService.updateTask(task);
+    }
+
+    @Operation(summary = "Delete a task", description = "Remove a task from the database by ID.")
+    @DeleteMapping("/{id}")
+    public void deleteTask(
+            @Parameter(description = "ID of the task to delete") @PathVariable long id) {
+        taskService.deleteTask(id);
     }
 }

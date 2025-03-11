@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-public class Task {
+public class TaskModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +15,9 @@ public class Task {
     private String description;
     private String status;
 
-    public Task() {}
+    public TaskModel() {}
 
-    public Task(String name, String description, String status) {
+    public TaskModel(String name, String description, String status) {
         this.name = name;
         this.description = description;
         this.status = status;

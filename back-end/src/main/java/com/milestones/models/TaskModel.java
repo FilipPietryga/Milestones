@@ -1,33 +1,23 @@
 package com.milestones.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "task_model")
 public class TaskModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String description;
     private String status;
 
-    public TaskModel() {}
-
-    public TaskModel(String name, String description, String status) {
-        this.name = name;
-        this.description = description;
-        this.status = status;
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,5 +43,14 @@ public class TaskModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public TaskModel(String name, String description, String status) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
+    public TaskModel() {
     }
 }

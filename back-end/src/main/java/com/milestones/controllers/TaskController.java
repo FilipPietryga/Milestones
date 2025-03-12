@@ -48,8 +48,13 @@ public class TaskController {
     public TaskModel updateTask(
             @Parameter(description = "ID of the task to update") @PathVariable long id,
             @Parameter(description = "Updated task object") @RequestBody TaskModel task) {
-        task.setId(id);
-        return taskService.updateTask(task);
+        Optional<TaskModel> existingTask = taskService.getTaskById(id);
+        if (existingTask.isPresent()) {
+            TaskModel updatedTask = existingTask.get();
+            updatedTask.setStatus(task.getStatus());
+            return taskService.saveTask(updatedTask);
+        }
+        return null;
     }
 
     @Operation(summary = "Delete a task", description = "Remove a task from the database by ID.")

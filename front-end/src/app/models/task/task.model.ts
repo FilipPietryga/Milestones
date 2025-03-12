@@ -2,9 +2,9 @@ export class TaskModel {
     id: number;
     name: string;
     description: string;
-    status: 'todo' | 'in_progress' | 'done';
+    status: string | null;
   
-    constructor(id: number, name: string, description: string, status: 'todo' | 'in_progress' | 'done') {
+    constructor(id: number, name: string, description: string, status: string | null) {
       this.id = id;
       this.name = name;
       this.description = description;
